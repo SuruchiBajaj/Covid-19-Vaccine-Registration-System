@@ -1,0 +1,57 @@
+<?php
+  session_start();
+  $db = mysqli_connect('localhost', 'root', '', 'covid19');
+  if($db === false){
+      die("ERROR: Could not connect. " . mysqli_connect_error());
+  }
+
+  if(isset($_SESSION['mobile'])){
+    $username = $_SESSION['mobile'];
+    echo "Hello, ".$_SESSION['mobile'];
+  }
+?>
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Log In</title>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="validator.js"></script>
+  </head>
+  <body>
+    <div class="topnav">
+            <a href="home.php">Home</a>
+            <a href="#book">Register Yourself</a>
+            <a href="contact.html">Contact Us</a>
+            <a href="Status.php">Your Registration Status</a>
+            <a href="#gallary">Gallary</a>
+            <?php if(isset($_SESSION['mobile']))
+            {
+                echo '<a href="logout.php">Log Out</a>';
+            }
+            else 
+            {
+                echo '<a href="login.html">Log In</a>';
+            }; ?>
+    </div> 
+    
+    <div class="main-block">
+    <form name="LogInForm" method="POST" action="login.php">
+      <?php include('errors.php'); ?> 
+      <h1>Log In Here</h1>
+      <fieldset>
+        <legend>
+          <h3>Please Enter Your Registered Mobile Nummber and Password</h3>
+        </legend>
+        <div  class="contact-details">
+          <div><label>Mobile Number*</label><input type="Phone" name="Mobile"></div>
+          <div><label>Password</label><input type="Password" name="Password" ></div>
+        </div>
+      </fieldset>
+      <button type="submit" value="send" name="LogIn">Submit</button>
+      </form>
+    </div> 
+  </body>
+</html>

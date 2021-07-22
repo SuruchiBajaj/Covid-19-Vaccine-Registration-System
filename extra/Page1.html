@@ -1,0 +1,89 @@
+<?php
+  session_start();
+  $db = mysqli_connect('localhost', 'root', '', 'covid19');
+  if($db === false){
+      die("ERROR: Could not connect. " . mysqli_connect_error());
+  }
+
+  // SQL query to select data from database
+
+  if(isset($_SESSION['mobile'])){
+    $username = $_SESSION['mobile'];
+
+    $sql = "SELECT * FROM status where mobile='$username'";
+    $result = mysqli_query($db, $sql);
+  }
+  else
+  {
+    echo '<script>alert("You are not logged in, Please Log In first")</script>';
+    Header("location: page1.html");
+  }
+?>
+
+<html>
+    <head>
+        <Title>Covid Vaccine Registration</Title>
+        <style>
+            body {
+              margin: 0;
+              background-image: url("covaxinn.jpg");
+              background-color: lightblue;
+              background-repeat: no-repeat;
+              background-attachment: fixed;
+              background-size: cover;
+            }
+            .topnav {
+              overflow: hidden;
+              background-color: rgb(100, 155, 3);
+            }
+            
+            .topnav a {
+              float: left;
+              color: #f2f2f2;
+              text-align: center;
+              padding: 14px 16px;
+              font-size: 17px;
+            }
+            
+            .topnav a:hover {
+              background-color: rgb(8, 10, 0);
+            }
+            .im {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 30%;
+            }
+            
+            ul {
+                display: table;
+                margin-left: auto;
+                margin-right: auto;
+                list-style-type: circle;
+            }
+
+            ul li {
+                margin-right: 1rem;
+            }
+        </style>
+    </head>
+    <body>
+      <div class="topnav">
+            <a href="page1.html">Home</a>
+            <a href="registration.html">Register Yourself</a>
+            <a href="contact.html">Contact Us</a>
+            <a href="Status.php">Your Registration Status</a>
+            <a href="#gallary">Gallary</a>
+            <a href="login.html">Log In</a>
+          </div> 
+           
+        <br>
+         <h3 style="color:rgb(21, 92, 158); text-align: center; left"> <marquee>Get Vaccinated yourself by registering here and track the record of your doses.</marquee></h3>
+          <img src="covaxin.jpg" alt="Train" class="im">
+        <br>
+        <div class="ul">
+        <h2 style="color:crimson; text-align: center;" >Follow these rules to save yourself from covid!</h2>
+        <img src="covid.jpg" alt="covid safety" height="300px" width="300px"class="im" >
+    </div>
+    </body>
+</html>
